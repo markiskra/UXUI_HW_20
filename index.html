@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://animaapp.s3.amazonaws.com/launchpad-static/launchpad.js"></script>
+    <style>
+      @font-face {
+        font-family: "Arial-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c58c99ae21217000c4e869b/arial.otf") format("opentype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-BoldOblique";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c7cb745985a58000ca31558/Helvetica-BoldOblique.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica";
+        font-style: normal;
+        font-weight: 1 1000;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Bold";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c5ae8b04a6c4e00097c3ec2/Helvetica-Bold.ttf")
+          format("truetype");
+      }
+
+      .component-wrapper a,
+      .screen a {
+        text-decoration: none;
+        display: contents;
+      }
+
+      .full-width-a {
+        width: 100%;
+      }
+
+      .full-height-a {
+        height: 100%;
+      }
+
+      .screen textarea:focus,
+      .screen input:focus {
+        outline: none;
+      }
+
+      .screen *,
+      .component-wrapper * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen div {
+        -webkit-text-size-adjust: none;
+      }
+
+      .container-center-vertical,
+      .container-center-horizontal {
+        pointer-events: none;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+      }
+
+      .container-center-vertical {
+        align-items: center;
+        height: 100%;
+      }
+
+      .container-center-horizontal {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .container-center-vertical > *,
+      .container-center-horizontal > * {
+        pointer-events: auto;
+        flex-shrink: 0;
+      }
+
+      .component-wrapper,
+      .screen {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-all;
+        word-break: break-word;
+      }
+
+      .auto-animated div {
+        opacity: 0;
+        position: absolute;
+        --z-index: -1;
+      }
+
+      .auto-animated .container-center-vertical,
+      .auto-animated .container-center-horizontal {
+        opacity: 1;
+      }
+
+      .overlay {
+        position: absolute;
+        opacity: 0;
+        display: none;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+      }
+
+      .animate-appear {
+        opacity: 0;
+        display: block;
+        animation: reveal 0.3s ease-in-out 1 normal forwards;
+      }
+
+      .animate-disappear {
+        opacity: 1;
+        display: block;
+        animation: reveal 0.3s ease-in-out 1 reverse forwards;
+      }
+
+      .animate-nodelay {
+        animation-delay: 0s;
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .align-self-flex-start {
+        align-self: flex-start;
+      }
+      .align-self-flex-end {
+        align-self: flex-end;
+      }
+      .align-self-flex-center {
+        align-self: center;
+      }
+      .valign-text-middle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .valign-text-bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      input:focus {
+        outline: none;
+      }
+      .component-wrapper,
+      .component-wrapper * {
+        pointer-events: none;
+      }
+
+      .component-wrapper a *,
+      .component-wrapper a,
+      .component-wrapper input,
+      .component-wrapper video,
+      .component-wrapper iframe,
+      .listeners-active,
+      .listeners-active * {
+        pointer-events: auto;
+      }
+
+      .hidden,
+      .hidden * {
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .smart-layers-pointers,
+      .smart-layers-pointers * {
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .component-wrapper.not-ready,
+      .component-wrapper.not-ready * {
+        visibility: hidden !important;
+      }
+
+      .listeners-active-click,
+      .listeners-active-click * {
+        cursor: pointer;
+      }
+
+      @font-face {
+        font-family: "Arial-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c58c99ae21217000c4e869b/arial.otf") format("opentype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-BoldOblique";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c7cb745985a58000ca31558/Helvetica-BoldOblique.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica";
+        font-style: normal;
+        font-weight: 1 1000;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Bold";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c5ae8b04a6c4e00097c3ec2/Helvetica-Bold.ttf")
+          format("truetype");
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .border-3px-azalea {
+        border: 3px solid var(--azalea);
+      }
+      .border-3px-pomegranate {
+        border: 3px solid var(--pomegranate);
+      }
+      .border-3px-white {
+        border: 3px solid var(--white);
+      }
+      .helvetica-bold-azalea-14px {
+        color: var(--azalea);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xs);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-azalea-16px {
+        color: var(--azalea);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-s);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-eerie-black-61px {
+        color: var(--eerie-black);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xxxl);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-pomegranate-16px {
+        color: var(--pomegranate);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-s);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-white-20px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-m);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-white-48px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xl);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-white-50px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xxl);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-normal-eerie-black-16px {
+        color: var(--eerie-black);
+        font-family: var(--font-family-helvetica);
+        font-size: var(--font-size-s);
+        font-style: normal;
+      }
+      .helvetica-regular-normal-white-16px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-regular);
+        font-size: var(--font-size-s);
+        font-style: normal;
+        font-weight: 400;
+      }
+      :root {
+        --azalea: rgba(242, 204, 221, 1);
+        --eerie-black: rgba(26, 24, 24, 1);
+        --font-family-helvetica: "Helvetica", Helvetica;
+        --font-family-helvetica-bold: "Helvetica-Bold", Helvetica;
+        --font-family-helvetica-regular: "Helvetica-Regular", Helvetica;
+        --font-size-l: 37px;
+        --font-size-m: 20px;
+        --font-size-s: 16px;
+        --font-size-xl: 48px;
+        --font-size-xs: 14px;
+        --font-size-xxl: 50px;
+        --font-size-xxxl: 61px;
+        --pomegranate: rgba(251, 73, 39, 1);
+        --white: rgba(255, 255, 255, 1);
+      }
+    </style>
+    <meta name="author" content="AnimaApp.com - Design to code, Automated." />
+  </head>
+  <body style="margin: 0; background: rgba(255, 255, 255, 1)">
+    <input type="hidden" id="anPageName" name="page" value="index" />
+    <div class="container-center-horizontal">
+      <div class="index screen">
+        <div class="overlap-group-C61RwL">
+          <div class="rectangle-94-4eduM0" id="rectangle-94"></div>
+          <div class="rectangle-95-4eduM0" id="rectangle-95"></div>
+          <div class="group-377-4eduM0">
+            <a href="#rectangle-95" onclick="window.event.stopPropagation()"
+              ><img class="mimainlogo2x-pner13 smart-layers-pointers" src="img/mimainlogo-2x-1@1x.png"
+            /></a>
+            <a href="#rectangle-94" onclick="window.event.stopPropagation()">
+              <div class="component-11-1-pner13 smart-layers-pointers">
+                <div class="about-1ncDnn helvetica-bold-eerie-black-61px">ABOUT</div>
+              </div></a
+            >
+            <a href="#rectangle-91" onclick="window.event.stopPropagation()">
+              <div class="component-8-1-pner13">
+                <div class="projects-jK9BaB helvetica-bold-eerie-black-61px smart-layers-pointers">PROJECTS</div>
+              </div></a
+            >
+            <a href="#rectangle-92" onclick="window.event.stopPropagation()">
+              <div class="component-9-1-pner13">
+                <div class="skills-arBIIq helvetica-bold-eerie-black-61px smart-layers-pointers">SKILLS</div>
+              </div></a
+            >
+            <a href="#rectangle-93" onclick="window.event.stopPropagation()">
+              <div class="component-10-1-pner13">
+                <div class="contact-AjFxq9 helvetica-bold-eerie-black-61px smart-layers-pointers">CONTACT</div>
+              </div></a
+            >
+          </div>
+        </div>
+        <div class="overlap-group2-C61RwL">
+          <div class="rectangle-91-4a9k2Y" id="rectangle-91"></div>
+          <div class="rectangle-26-4a9k2Y"></div>
+          <div class="rectangle-90-4a9k2Y"></div>
+          <img class="herobanner2x-4a9k2Y" src="img/herobanner-2x@1x.png" />
+          <div class="hello-i-am-mark-is-vital-within-4a9k2Y">
+            <span class="span0-E7Zgjy">Hello, I am Mark Iskra, a UX/UI Designer. I have a passion for all things </span
+            ><span class="span1-E7Zgjy">creative.<br /></span
+            ><span class="span2-E7Zgjy">I am always seeking knowledge and new ways to improve </span
+            ><span class="span3-E7Zgjy">myself and surround</span><span class="span4-E7Zgjy"> <br /></span
+            ><span class="span5-E7Zgjy">myself with creative influences to learn and evolve as a designer.<br /></span
+            ><span class="span6-E7Zgjy">Collaboration is vital within my professional approach to work. </span
+            ><span class="span7-E7Zgjy">Building a strong</span><span class="span8-E7Zgjy"> <br /></span
+            ><span class="span9-E7Zgjy"
+              >team culture allows creative work to flourish and nurture strong workplace <br /></span
+            ><span class="span10-E7Zgjy">relationships. I enjoy fast passed environments, have excellent </span
+            ><span class="span11-E7Zgjy">communication</span><span class="span12-E7Zgjy"> <br /></span
+            ><span class="span13-E7Zgjy"
+              >skills and thrive as a problem solver. Multi-skilled in many aspects of design</span
+            ><span class="span14-E7Zgjy"> <br /></span
+            ><span class="span15-E7Zgjy">with a keen eye for detail and trend-based processes.</span>
+          </div>
+          <div class="chevron-2x-11x-copy-4a9k2Y">
+            <img
+              width="100%"
+              height="100%"
+              src="https://anima-uploads.s3.amazonaws.com/projects/605b1d5c502207e542537d33/files/chevron-2x-1-1x-copy.gif"
+            />
+          </div>
+        </div>
+        <div class="overlap-group1-C61RwL">
+          <div class="rectangle-93-RH0WJ5" id="rectangle-93"></div>
+          <div class="rectangle-92-RH0WJ5" id="rectangle-92"></div>
+          <div class="rectangle-1-RH0WJ5"></div>
+          <div class="rectangle-2-RH0WJ5"></div>
+          <div class="group-368-RH0WJ5">
+            <div class="about-mY3D9x helvetica-bold-azalea-14px">ABOUT</div>
+            <div class="projects-mY3D9x helvetica-bold-azalea-14px">PROJECTS</div>
+            <div class="skills-mY3D9x helvetica-bold-azalea-14px">SKILLS</div>
+            <div class="contact-mY3D9x helvetica-bold-azalea-14px">CONTACT</div>
+          </div>
+          <img class="bannerprojects2x-RH0WJ5" src="img/bannerprojects-2x@1x.png" />
+          <div class="group-371-RH0WJ5">
+            <div class="group-330-A4LgfP">
+              <div class="overlap-group3-kEcU3r">
+                <div class="rectangle-6-Rkp1ZY"></div>
+                <div class="rectangle-7-Rkp1ZY"></div>
+                <div class="rectangle-25-Rkp1ZY"></div>
+                <div class="rectangle-20-Rkp1ZY border-3px-pomegranate"></div>
+                <div class="tripwise-apptri-sion-miro-figma-Rkp1ZY helvetica-normal-eerie-black-16px">
+                  <span class="span0-ylJTdN">TRIPWISE APP<br /></span
+                  ><span class="span1-ylJTdN"
+                    ><br />Tripwise is a post covid travel app <br />that allows users to access real-time
+                    <br />information, get alerts when needed <br />to update them on developments and to be able to
+                    contact friends and family with ease. <br /><br />InVision, Miro, Figma.</span
+                  >
+                </div>
+                <img class="logotripwise2x-Rkp1ZY" src="img/logotripwise-2x@1x.png" />
+              </div>
+              <a href="tripwise.html" onclick="window.event.stopPropagation()">
+                <div class="component-12-1-kEcU3r border-3px-pomegranate smart-layers-pointers">
+                  <div class="click-to-view-H5sZii helvetica-bold-pomegranate-16px">CLICK TO VIEW</div>
+                </div></a
+              >
+            </div>
+            <div class="group-331-A4LgfP">
+              <div class="overlap-group4-syfBIx">
+                <div class="rectangle-8-7RdaQV"></div>
+                <div class="rectangle-9-7RdaQV"></div>
+                <div class="rectangle-21-7RdaQV border-3px-azalea"></div>
+                <div class="markit-appa-uni-sion-miro-figma-7RdaQV helvetica-normal-eerie-black-16px">
+                  <span class="span0-PMznPL">MARKIT APP<br /></span
+                  ><span class="span1-PMznPL"
+                    ><br />A unique app creation which allows<br />the user to search for local markets<br />around
+                    them. Key features included;<br />location services, market reviews <br />and favorites, search by
+                    market type<br />and stall holder booking.<br /><br />InVision, Miro, Figma.</span
+                  >
+                </div>
+                <img class="logomarkit2x-7RdaQV" src="img/logomarkit-2x@1x.png" />
+              </div>
+              <div class="group-182-syfBIx border-3px-azalea">
+                <div class="click-to-view-aC1xji helvetica-bold-azalea-16px">CLICK TO VIEW</div>
+              </div>
+            </div>
+            <div class="group-332-A4LgfP">
+              <div class="overlap-group5-MsBPlF">
+                <div class="rectangle-10-tjIMPT"></div>
+                <div class="rectangle-24-tjIMPT"></div>
+                <div class="rectangle-11-tjIMPT"></div>
+                <div class="rectangle-22-tjIMPT border-3px-pomegranate"></div>
+                <div class="national-archiv-n-miro-adobe-xd-tjIMPT helvetica-normal-eerie-black-16px">
+                  <span class="span0-0kamaW">NATIONAL ARCHIVE OF AUSTRALIA WEBSITE REDESIGN<br /></span
+                  ><span class="span1-0kamaW"
+                    ><br />Showcasing a redesign of the National&nbsp;&nbsp;Archives of Australia website. <br />A team
+                    project through research, analysis, ideation, prioritisation and prototyping.<br />
+                    <br />InVision, Miro, Adobe XD.</span
+                  >
+                </div>
+                <img class="logonaa2x-tjIMPT" src="img/logonaa-2x@1x.png" />
+              </div>
+              <div class="group-183-MsBPlF border-3px-pomegranate">
+                <div class="click-to-view-trvx6b helvetica-bold-pomegranate-16px">CLICK TO VIEW</div>
+              </div>
+            </div>
+            <div class="group-333-A4LgfP">
+              <div class="overlap-group6-fSKOQw">
+                <div class="rectangle-12-PGyjxV"></div>
+                <div class="rectangle-13-PGyjxV"></div>
+                <div class="rectangle-23-PGyjxV border-3px-azalea"></div>
+                <div class="challenge-websi-n-miro-adobe-xd-PGyjxV helvetica-normal-eerie-black-16px">
+                  <span class="span0-7JCatO">CHALLENGE <br />WEBSITE REDESIGN<br /></span
+                  ><span class="span1-7JCatO"
+                    ><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.<br /><br />InVision, Miro,
+                    Adobe XD.</span
+                  >
+                </div>
+                <img class="logochallenge2x-PGyjxV" src="img/logochallenge-2x@1x.png" />
+              </div>
+              <div class="group-184-fSKOQw border-3px-azalea">
+                <div class="click-to-view-T5xKqL helvetica-bold-azalea-16px">CLICK TO VIEW</div>
+              </div>
+            </div>
+          </div>
+          <img class="bannerskills2x-RH0WJ5" src="img/bannerskills-2x@1x.png" />
+          <div class="group-376-RH0WJ5">
+            <div class="group-375-Ob98Rh">
+              <div class="group-334-8VTi4t">
+                <div class="rectangle-59-Fqtajh"></div>
+                <div class="group-309-Fqtajh"></div>
+                <div class="user-researchwi-esearch-methods-Fqtajh helvetica-normal-eerie-black-16px">
+                  <span class="span0-3xfOIq">USER RESEARCH<br /></span
+                  ><span class="span1-3xfOIq"
+                    ><br />With a true understanding of what <br />the user wants and how they view <br />the world.
+                    Having the ability to plan,<br />conduct and analyze findings from <br />a variety of research
+                    methods.</span
+                  >
+                </div>
+                <div class="rectangle-67-Fqtajh border-3px-white"></div>
+                <img class="graphicuserexperience2x-Fqtajh" src="img/graphicuserexperience-2x@1x.png" />
+              </div>
+            </div>
+            <div class="group-374-Ob98Rh">
+              <div class="group-335-GxTucY">
+                <div class="rectangle-60-n2rzQq"></div>
+                <div class="rectangle-64-n2rzQq"></div>
+                <div class="wireframingknow-of-the-concept-n2rzQq helvetica-normal-eerie-black-16px">
+                  <span class="span0-P2WePe">WIREFRAMING<br /></span
+                  ><span class="span1-P2WePe"
+                    ><br />Knowing how to clearly demonstrate<br />how something works rather than <br />how it
+                    looks.Defining the elements <br />that are present from page to page.<br />Showing possible
+                    interactions so <br />stakeholders have a clear and direct<br />vision of the concept.<br
+                  /></span>
+                </div>
+                <div class="rectangle-68-n2rzQq border-3px-white"></div>
+                <img class="graphicwireframing2x-n2rzQq" src="img/graphicwireframing-2x@1x.png" />
+              </div>
+            </div>
+            <div class="group-373-Ob98Rh">
+              <div class="group-336-UjIeNH">
+                <div class="rectangle-61-v6YaEY"></div>
+                <div class="rectangle-65-v6YaEY"></div>
+                <div class="prototypingcrea-keholders-needs-v6YaEY helvetica-normal-eerie-black-16px">
+                  <span class="span0-4Nyj8R">PROTOTYPING<br /></span
+                  ><span class="span1-4Nyj8R"
+                    ><br />Creating functional and system<br />matching final products. <br />Which allow the users to
+                    test page <br />functionality, user journey and overall <br />navigation. Through successful
+                    <br />iterations to meet stakeholders <br />needs.
+                  </span>
+                </div>
+                <div class="rectangle-69-v6YaEY border-3px-white"></div>
+                <img class="graphicprototyping2x-v6YaEY" src="img/graphicprototyping-2x@1x.png" />
+              </div>
+            </div>
+            <div class="group-372-Ob98Rh">
+              <div class="group-337-zGexFP">
+                <div class="rectangle-62-mUZJn1"></div>
+                <div class="rectangle-66-mUZJn1"></div>
+                <div class="toolsadobe-phot-miro-in-vision-mUZJn1 helvetica-normal-eerie-black-16px">
+                  <span class="span0-yjkFOC">TOOLS<br /></span
+                  ><span class="span1-yjkFOC"
+                    ><br />Adobe Photoshop<br />Adobe Illustrator<br />Adobe InDesign<br />Adobe XD<br />Figma<br />Miro<br />InVision</span
+                  >
+                </div>
+                <div class="rectangle-70-mUZJn1 border-3px-white"></div>
+                <img class="graphictools2x-mUZJn1" src="img/graphictools-2x@1x.png" />
+              </div>
+            </div>
+          </div>
+          <div class="group-369-RH0WJ5">
+            <img class="socialinsta2x-KmBPxS" src="img/socialinsta-2x-1@1x.png" />
+            <img class="socialtwitter2x-KmBPxS" src="img/socialtwitter-2x-1@1x.png" />
+            <img class="sociallinkedin2x-KmBPxS" src="img/sociallinkedin-2x-1@1x.png" />
+          </div>
+          <div class="group-338-RH0WJ5">
+            <div class="flex-col-ZOhCOs">
+              <div class="feel-free-to-co-s-soon-as-i-can-lh0Ap5">
+                Feel free to contact me any time, I would love to hear from you.<br />I will get back to you as soon as
+                I can.
+              </div>
+              <div class="group-287-lh0Ap5">
+                <div class="name-J1UT1B helvetica-regular-normal-white-16px">Name</div>
+                <div class="rectangle-16-J1UT1B border-3px-white"></div>
+              </div>
+              <div class="group-286-lh0Ap5">
+                <div class="email-52xftx helvetica-regular-normal-white-16px">Email</div>
+                <div class="rectangle-71-52xftx border-3px-white"></div>
+              </div>
+              <div class="group-285-lh0Ap5">
+                <div class="message-M86TZx helvetica-regular-normal-white-16px">Message</div>
+                <div class="rectangle-72-M86TZx border-3px-white"></div>
+              </div>
+              <div class="group-284-lh0Ap5 border-3px-azalea">
+                <div class="send-rGtjHA helvetica-bold-azalea-16px">SEND</div>
+              </div>
+            </div>
+            <div class="overlap-group7-ZOhCOs">
+              <div class="rectangle-73-iALn43"></div>
+              <div class="info-iALn43">Info</div>
+              <div class="markpauliskragmailcom-iALn43 helvetica-regular-normal-white-16px">
+                markpauliskra@gmail.com
+              </div>
+              <div class="x61-429-300-300-iALn43 helvetica-regular-normal-white-16px">+61 429 300 300</div>
+              <div class="x27-banks-street-iALn43 helvetica-regular-normal-white-16px">27 Banks Street</div>
+              <div class="x830-1730-iALn43 helvetica-regular-normal-white-16px">8:30 - 17:30</div>
+              <div class="x313-311-3615-zoom-id-iALn43 helvetica-regular-normal-white-16px">313 311 3615 (Zoom ID)</div>
+              <img class="contactzoom2x-iALn43" src="img/contactzoom-2x@1x.png" />
+              <img class="contacttime2x-iALn43" src="img/contacttime-2x@1x.png" />
+              <img class="contactaddress2x-iALn43" src="img/contactaddress-2x@1x.png" />
+              <img class="contactphone2x-iALn43" src="img/contactphone-2x@1x.png" />
+              <img class="contactemail2x-iALn43" src="img/contactemail-2x@1x.png" />
+            </div>
+          </div>
+          <img class="bannercontact2x-RH0WJ5" src="img/bannercontact-2x@1x.png" />
+          <img class="chevron2x-RH0WJ5" src="img/chevron-2x@1x.png" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

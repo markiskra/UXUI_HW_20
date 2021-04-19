@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="css/tripwise.css" />
+    <style>
+      @font-face {
+        font-family: "Arial-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c58c99ae21217000c4e869b/arial.otf") format("opentype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-BoldOblique";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c7cb745985a58000ca31558/Helvetica-BoldOblique.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica";
+        font-style: normal;
+        font-weight: 1 1000;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Bold";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c5ae8b04a6c4e00097c3ec2/Helvetica-Bold.ttf")
+          format("truetype");
+      }
+
+      .component-wrapper a,
+      .screen a {
+        text-decoration: none;
+        display: contents;
+      }
+
+      .full-width-a {
+        width: 100%;
+      }
+
+      .full-height-a {
+        height: 100%;
+      }
+
+      .screen textarea:focus,
+      .screen input:focus {
+        outline: none;
+      }
+
+      .screen *,
+      .component-wrapper * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .screen div {
+        -webkit-text-size-adjust: none;
+      }
+
+      .container-center-vertical,
+      .container-center-horizontal {
+        pointer-events: none;
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+      }
+
+      .container-center-vertical {
+        align-items: center;
+        height: 100%;
+      }
+
+      .container-center-horizontal {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .container-center-vertical > *,
+      .container-center-horizontal > * {
+        pointer-events: auto;
+        flex-shrink: 0;
+      }
+
+      .component-wrapper,
+      .screen {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-all;
+        word-break: break-word;
+      }
+
+      .auto-animated div {
+        opacity: 0;
+        position: absolute;
+        --z-index: -1;
+      }
+
+      .auto-animated .container-center-vertical,
+      .auto-animated .container-center-horizontal {
+        opacity: 1;
+      }
+
+      .overlay {
+        position: absolute;
+        opacity: 0;
+        display: none;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+      }
+
+      .animate-appear {
+        opacity: 0;
+        display: block;
+        animation: reveal 0.3s ease-in-out 1 normal forwards;
+      }
+
+      .animate-disappear {
+        opacity: 1;
+        display: block;
+        animation: reveal 0.3s ease-in-out 1 reverse forwards;
+      }
+
+      .animate-nodelay {
+        animation-delay: 0s;
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .align-self-flex-start {
+        align-self: flex-start;
+      }
+      .align-self-flex-end {
+        align-self: flex-end;
+      }
+      .align-self-flex-center {
+        align-self: center;
+      }
+      .valign-text-middle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .valign-text-bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      input:focus {
+        outline: none;
+      }
+      .component-wrapper,
+      .component-wrapper * {
+        pointer-events: none;
+      }
+
+      .component-wrapper a *,
+      .component-wrapper a,
+      .component-wrapper input,
+      .component-wrapper video,
+      .component-wrapper iframe,
+      .listeners-active,
+      .listeners-active * {
+        pointer-events: auto;
+      }
+
+      .hidden,
+      .hidden * {
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .smart-layers-pointers,
+      .smart-layers-pointers * {
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .component-wrapper.not-ready,
+      .component-wrapper.not-ready * {
+        visibility: hidden !important;
+      }
+
+      .listeners-active-click,
+      .listeners-active-click * {
+        cursor: pointer;
+      }
+
+      @font-face {
+        font-family: "Arial-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c58c99ae21217000c4e869b/arial.otf") format("opentype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-BoldOblique";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c7cb745985a58000ca31558/Helvetica-BoldOblique.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Regular";
+        font-style: normal;
+        font-weight: 400;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica";
+        font-style: normal;
+        font-weight: 1 1000;
+        src: url("https://anima-uploads.s3.amazonaws.com/5eae8edb379f4b2f41f99ab5/Helvetica_33244fbeea10f093ae87de7a994c3697.ttf")
+          format("truetype");
+      }
+
+      @font-face {
+        font-family: "Helvetica-Bold";
+        font-style: normal;
+        font-weight: 700;
+        src: url("https://anima-uploads.s3.amazonaws.com/5c5ae8b04a6c4e00097c3ec2/Helvetica-Bold.ttf")
+          format("truetype");
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .border-3px-azalea {
+        border: 3px solid var(--azalea);
+      }
+      .border-3px-pomegranate {
+        border: 3px solid var(--pomegranate);
+      }
+      .border-3px-white {
+        border: 3px solid var(--white);
+      }
+      .helvetica-bold-azalea-14px {
+        color: var(--azalea);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xs);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-azalea-16px {
+        color: var(--azalea);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-s);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-eerie-black-61px {
+        color: var(--eerie-black);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xxxl);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-pomegranate-16px {
+        color: var(--pomegranate);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-s);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-white-20px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-m);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-white-48px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xl);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-bold-white-50px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-bold);
+        font-size: var(--font-size-xxl);
+        font-style: normal;
+        font-weight: 700;
+      }
+      .helvetica-normal-eerie-black-16px {
+        color: var(--eerie-black);
+        font-family: var(--font-family-helvetica);
+        font-size: var(--font-size-s);
+        font-style: normal;
+      }
+      .helvetica-regular-normal-white-16px {
+        color: var(--white);
+        font-family: var(--font-family-helvetica-regular);
+        font-size: var(--font-size-s);
+        font-style: normal;
+        font-weight: 400;
+      }
+      :root {
+        --azalea: rgba(242, 204, 221, 1);
+        --eerie-black: rgba(26, 24, 24, 1);
+        --font-family-helvetica: "Helvetica", Helvetica;
+        --font-family-helvetica-bold: "Helvetica-Bold", Helvetica;
+        --font-family-helvetica-regular: "Helvetica-Regular", Helvetica;
+        --font-size-l: 37px;
+        --font-size-m: 20px;
+        --font-size-s: 16px;
+        --font-size-xl: 48px;
+        --font-size-xs: 14px;
+        --font-size-xxl: 50px;
+        --font-size-xxxl: 61px;
+        --pomegranate: rgba(251, 73, 39, 1);
+        --white: rgba(255, 255, 255, 1);
+      }
+    </style>
+    <meta name="author" content="AnimaApp.com - Design to code, Automated." />
+  </head>
+  <body style="margin: 0; background: rgba(255, 255, 255, 1)">
+    <input type="hidden" id="anPageName" name="page" value="tripwise" />
+    <div class="container-center-horizontal">
+      <div class="tripwise screen">
+        <div class="rectangle-1-C61RwL"></div>
+        <div class="project-overvie-their-specific-C61RwL helvetica-bold-white-20px">
+          <span class="span0-GqlQjP">PROJECT OVERVIEW/DESCRIPTION<br /></span
+          ><span class="span1-GqlQjP"
+            >Our Mobile App allows the user to access critical information while travelling in a post-pandemic world.
+            <br />Fast and simple real-time information on local news, permissions and restrictions, covid safety tips
+            for their <br />specific location, check-in and status updates and location services.<br /><br /></span
+          ><span class="span2-GqlQjP">THE PROBLEM<br /></span
+          ><span class="span3-GqlQjP"
+            >Current travelling itinerary apps only provide the user with information to help them plan their journey
+            <br />or navigate while traveling to help them along the way. Since the pandemic users may feel less safe
+            and<br />uninformed while overseas. Apps have not yet considered their users needs of accessing real-time
+            news<br />about such topics as Covid19.<br /><br /></span
+          ><span class="span4-GqlQjP">THE SOLUTION<br /></span
+          ><span class="span5-GqlQjP"
+            >The solution is to offer travel users an app that allows them to access real-time information, get alerts
+            when<br />needed to update them on developments and to be able to contact friends and family with ease. Also
+            to have the<br />ability to notify friends and family automatically when the user has reached milstones ie;
+            arriving at an destination<br />or location for safe piece of mind. All within an app that holds the users
+            itinerary with up to date information.<br /><br /></span
+          ><span class="span6-GqlQjP">TEAM MEMBERS<br /></span
+          ><span class="span7-GqlQjP">Mark Iskra (Individual Project).<br /><br /></span
+          ><span class="span8-GqlQjP">MY ROLE<br /></span><span class="span9-GqlQjP">UX Designer <br /><br /></span
+          ><span class="span10-GqlQjP">TOOLS<br /></span
+          ><span class="span11-GqlQjP">Miro, Adobe Illustrator, Figma, Zoom.</span>
+        </div>
+        <div class="titletripwise-t-one-of-the-wors-C61RwL helvetica-bold-white-20px">
+          <span class="span0-tppS61"><br /></span><span class="span1-tppS61"><br /></span
+          ><span class="span2-tppS61"><br /><br />TITLE</span
+          ><span class="span3-tppS61"><br />Tripwise Travel App.<br /><br /></span
+          ><span class="span4-tppS61">AUTHOR AND STAKEHOLDERS</span
+          ><span class="span5-tppS61"> <br />Mark Iskra<br /><br /></span><span class="span6-tppS61">DATE</span
+          ><span class="span7-tppS61"> <br />24/10/2020<br /><br /></span
+          ><span class="span8-tppS61">BACKGROUND <br /></span
+          ><span class="span9-tppS61"
+            >In late 2019 the world was confronted with a worldwide pandemic. This pandemic known as the Coronavirus or
+            Covid19 disrupted many industries. One of the worst hit sectors was ther travel and tourism sector.
+            Airlines, hotels and tourist businesses were forced to slow down or even shut due to travel restrictions and
+            border closures.<br /><br /></span
+          ><span class="span10-tppS61">I plan to research how travel will become different in a post-pandemic</span
+          ><span class="span11-tppS61">
+            world. How will people travel, interact, stay informed and move around the globe in the future?<br /><br />How
+            will our App help the user to navigate safely through a post-pandemic world?&nbsp;&nbsp;<br /></span
+          ><span class="span12-tppS61"><br />GOALS</span
+          ><span class="span13-tppS61">
+            <br />To develop an App that helps guide the user to make smart and safe decisions whilst travelling
+            domestically &amp; internationally in a post-pandemic world.<br />Allowing the user to access real-time
+            information on a country&#39;s virus statistics, travel warnings, restrictions/permissions, health advice
+            and safety ‘check in’ options.<br /><br /><br
+          /></span>
+        </div>
+        <div class="research-questi-l-the-users-maj-C61RwL helvetica-bold-white-20px">
+          <span class="span0-CgVAf7"><br /><br /><br /><br /><br />RESEARCH QUESTIONS <br /></span
+          ><span class="span1-CgVAf7"
+            >How will people&#39;s travel habits change?<br />What will people be concerned about while travelling?<br />How
+            will people stay informed about critical information?<br />How will people interact with each other &amp;
+            businesses?<br />What will the user’s major needs be while travelling?<br />What type of user will use the
+            App?<br />How do we promote the travel App?<br />What are the major features of the App?
+            <br /><br /><br /></span
+          ><span class="span2-CgVAf7">METHODOLOGY <br /></span
+          ><span class="span3-CgVAf7"
+            >Interviews will be conducted with 20 questions regarding post-<br />pandemic travel.<br /></span
+          ><span class="span4-CgVAf7">Five interviews will take place with five participants at an approximate</span
+          ><span class="span5-CgVAf7">
+            duration of 20 minutes per interview, over the coarse of three days (26-28 Oct 2020).<br /><br /></span
+          ><span class="span6-CgVAf7">PARTICIPANTS <br /></span
+          ><span class="span7-CgVAf7"
+            >In the interview process we will be concerntrating on Millennial travellers over a broad age range. I feel
+            the millennial age group (20yrs-39yrs)is the perfect group to concertrate on as I can get a </span
+          ><span class="span8-CgVAf7">large scope of different opinions through the same interview questions.</span
+          ><span class="span9-CgVAf7"><br /><br /><br /><br /></span>
+        </div>
+        <div class="ux-research-plan-C61RwL helvetica-bold-white-48px">UX RESEARCH PLAN</div>
+        <div class="user-insight-statement-C61RwL helvetica-bold-white-48px">USER INSIGHT STATEMENT</div>
+        <div class="group-438-C61RwL">
+          <div class="group-437-xTX1aG">
+            <div class="emily-a-digital-ty-and-covid-al-ajXPUQ">
+              Emily, a digital native who loves to travel overseas with friends when she can get away from her busy
+              schedule, <br />needs to be able to access real-time data that allows Emily to be aware of the country’s
+              restrictions, permissions, <br />Covid safety, and Covid alerts. Emily wants to be able to access this
+              information so she and her friends can feel <br />safe overseas and up to date with local and
+              international information.
+            </div>
+          </div>
+        </div>
+        <div class="problem-statement-C61RwL helvetica-bold-white-50px">PROBLEM STATEMENT</div>
+        <div class="the-tripwise-ap-specific-covid-C61RwL">
+          The Tripwise App has been developed to provide travellers like Emily access to real-time data to make safe
+          and<br />informed decisions while travelling in foreign countries. Foreign travellers need to be able to
+          access information about <br />country-specific Covid safety advice and government Covid 19 rules and
+          regulations. Our mobile app will help Emily <br />enjoy a safe and stress-free stay in any destination by
+          giving her instant, current and up to date information at her fingertips.&nbsp;&nbsp;
+        </div>
+        <div class="tripwise-user-flow-C61RwL helvetica-bold-white-50px">TRIPWISE USER FLOW</div>
+        <img class="group-9402x-C61RwL" src="img/group-940-2x@1x.png" />
+        <div class="storyboard-C61RwL helvetica-bold-white-50px">STORYBOARD</div>
+        <div class="group-1069-C61RwL">
+          <div class="competitor-analysis-table-oYVcHC helvetica-bold-white-48px">COMPETITOR ANALYSIS TABLE</div>
+        </div>
+        <img class="screen-shot-202-17-at-33255-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-32-55-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33030-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-30-30-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33250-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-32-50-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33237-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-32-37-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33232-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-32-32-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33224-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-32-24-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33212-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-32-12-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33207-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-32-07-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33149-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-31-49-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33142-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-31-42-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33054-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-30-54-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33048-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-30-48-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33040-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-30-40-pm@1x.png" />
+        <img class="screen-shot-202-17-at-33306-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-33-06-pm@1x.png" />
+        <img class="screen-shot-202-17-at-35041-pm-C61RwL" src="img/screen-shot-2021-04-17-at-3-50-41-pm@1x.png" />
+        <div class="high-fidelity-prototype-C61RwL helvetica-bold-white-48px">HIGH FIDELITY PROTOTYPE</div>
+        <div class="high-fidelity-prototype-link-C61RwL helvetica-bold-white-20px">HIGH FIDELITY PROTOTYPE LINK:</div>
+        <a
+          href="https://www.figma.com/file/gSpwDFFEhlQpen7uu5OFtS/TRIPWISE-HI-FIDELITY-PROTOTYPE?node-id=1%3A7"
+          onclick="window.event.stopPropagation()"
+          target="_blank"
+          ><div class="httpswwwfigmaco-ownpage-id03-a1-C61RwL helvetica-bold-pomegranate-16px smart-layers-pointers">
+            https://www.figma.com/proto/gSpwDFFEhlQpen7uu5OFtS/TRIPWISE-HI-FIDELITY-PROTOTYPE?node-id=1%3A38&amp;scaling=scale-down&amp;page-id=0%3A1
+          </div></a
+        >
+        <div class="final-thoughts-ld-as-major-fea-C61RwL helvetica-bold-white-20px">
+          <span class="span0-Wge5s7">FINAL THOUGHTS...</span
+          ><span class="span1-Wge5s7">
+            <br /><br />The process of User Research helped me to understand the Needs, Wants and Frustration of the
+            user. <br />By being able to break down the steps through definition and ideation I could truely understand
+            what the<br />Tripwise app would as major features to become a useful tool.<br />Looking at competitors in
+            the market and finding the gaps that needed to be filled and actkownledging the areas<br />of market place
+            norms I could create an app to suit the users needs and concerns.<br />This has been a great learning
+            experience into UX Design and I look forward to what comes ahead in my study.<br /><br /></span
+          ><span class="span2-Wge5s7">Mark Iskra.<br /></span>
+        </div>
+        <div class="group-1163-C61RwL">
+          <div class="group-1048-UYZBzt">
+            <img class="path-6301-S1sbze" src="img/path-6301@1x.png" />
+            <img class="path-6302-S1sbze" src="img/path-6302@1x.png" />
+            <img class="path-6303-S1sbze" src="img/path-6303@1x.png" />
+            <img class="path-6304-S1sbze" src="img/path-6304@1x.png" />
+            <img class="path-6305-S1sbze" src="img/path-6305@1x.png" />
+            <img class="path-6306-S1sbze" src="img/path-6306@1x.png" />
+            <img class="path-6307-S1sbze" src="img/path-6307@1x.png" />
+            <img class="path-6308-S1sbze" src="img/path-6308@1x.png" />
+          </div>
+          <img class="path-6309-UYZBzt" src="img/path-6309@1x.png" />
+          <img class="path-6310-UYZBzt" src="img/path-6310@1x.png" />
+        </div>
+        <div class="rectangle-2-C61RwL"></div>
+        <div class="group-368-C61RwL">
+          <div class="about-9tmuuW helvetica-bold-azalea-14px">ABOUT</div>
+          <div class="skills-9tmuuW helvetica-bold-azalea-14px">SKILLS</div>
+          <div class="projects-9tmuuW helvetica-bold-azalea-14px">PROJECTS</div>
+          <div class="contact-9tmuuW helvetica-bold-azalea-14px">CONTACT</div>
+        </div>
+        <div class="group-369-C61RwL">
+          <img class="sociallinkedin2x-gNMGaF" src="img/sociallinkedin-2x-1@1x.png" />
+          <img class="socialtwitter2x-gNMGaF" src="img/socialtwitter-2x-1@1x.png" />
+          <img class="socialinsta2x-gNMGaF" src="img/socialinsta-2x-1@1x.png" />
+        </div>
+        <div class="chevron-2x-11x-copy-C61RwL">
+          <img
+            width="100%"
+            height="100%"
+            src="https://anima-uploads.s3.amazonaws.com/projects/605b1d5c502207e542537d33/files/chevron-2x-1-1x-copy.gif"
+          />
+        </div>
+        <div class="lo-fi-app-sketches-C61RwL helvetica-bold-white-50px">LO-FI APP SKETCHES</div>
+        <div class="x2-x2-priority-matrix-C61RwL helvetica-bold-white-48px">2X2 PRIORITY MATRIX</div>
+        <div class="usability-problems-table-C61RwL helvetica-bold-white-48px">USABILITY PROBLEMS TABLE</div>
+        <img class="tripwiselogo2x-C61RwL" src="img/tripwiselogo-2x-1@1x.png" />
+        <img class="problems2x-C61RwL" src="img/problems-2x@1x.png" />
+        <img class="x2x2matrix2x-C61RwL" src="img/2x2matrix-2x@1x.png" />
+        <img class="comps2x-C61RwL" src="img/comps-2x@1x.png" />
+        <img class="lofisketches2x-C61RwL" src="img/lofisketches-2x@1x.png" />
+        <img class="storyboard2x-C61RwL" src="img/storyboard-2x@1x.png" />
+        <img class="value2x-C61RwL" src="img/value-2x@1x.png" />
+        <img class="scenario2x-C61RwL" src="img/scenario-2x@1x.png" />
+        <img class="ilike2x-C61RwL" src="img/ilike-2x@1x.png" />
+        <img class="thinks2x-C61RwL" src="img/thinks-2x@1x.png" />
+        <img class="interview2x-C61RwL" src="img/interview-2x@1x.png" />
+        <img class="protoimage2x-C61RwL" src="img/protoimage-2x@1x.png" />
+        <img class="userimage2x-C61RwL" src="img/userimage-2x@1x.png" />
+        <div class="rectangle-94-C61RwL"></div>
+        <div class="rectangle-95-C61RwL"></div>
+        <img class="primatrix22x-C61RwL" src="img/primatrix2-2x@1x.png" />
+        <img class="tripwiselogo2x-VMr6Om" src="img/tripwiselogo-2x-1@1x.png" />
+        <div class="group-377-C61RwL">
+          <a href="index.html" onclick="window.event.stopPropagation()">
+            <div class="component-11-2-lvXcn7 smart-layers-pointers">
+              <div class="about-ZEb3Bi helvetica-bold-eerie-black-61px">ABOUT</div>
+            </div></a
+          >
+          <a href="index.html" onclick="window.event.stopPropagation()">
+            <div class="component-9-2-lvXcn7">
+              <div class="skills-ERWTZa helvetica-bold-eerie-black-61px smart-layers-pointers">SKILLS</div>
+            </div></a
+          >
+          <a href="index.html" onclick="window.event.stopPropagation()">
+            <div class="component-8-2-lvXcn7">
+              <div class="projects-9wlfIU helvetica-bold-eerie-black-61px smart-layers-pointers">PROJECTS</div>
+            </div></a
+          >
+          <a href="index.html" onclick="window.event.stopPropagation()">
+            <div class="component-10-2-lvXcn7">
+              <div class="contact-IoPQhO helvetica-bold-eerie-black-61px smart-layers-pointers">CONTACT</div>
+            </div></a
+          >
+          <a href="index.html" onclick="window.event.stopPropagation()"
+            ><img class="mimainlogo2x-lvXcn7 smart-layers-pointers" src="img/mimainlogo-2x-1@1x.png"
+          /></a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
