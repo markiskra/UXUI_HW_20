@@ -701,7 +701,7 @@ transform: scale(1.1);
   left: 0px;
   min-width: 2257px;
   padding: 21px 189px;
-  position: absolute;
+  position: fixed;
   top: 0px;
   width: auto;
 }
